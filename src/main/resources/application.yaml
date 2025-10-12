@@ -1,0 +1,19 @@
+jwt:
+  secret: dGVzdFNlY3JldEtleUZvckpXVFRva2VuR2VuZXJhdGlvbjEyMzQ1Njc4OTA=
+  expiration: 86400000
+
+spring:
+  application:
+    name: fitness
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/fitness
+    username: root
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
