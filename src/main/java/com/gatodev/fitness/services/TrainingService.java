@@ -5,8 +5,12 @@ import java.util.List;
 
 public interface TrainingService {
     Training addTraining(Training training);
+
     Training updateTraining(Training training);
+
     Training getTraining(Long id);
+
     void deleteTraining(Long id);
+
     List<Training> getTrainings();
 }

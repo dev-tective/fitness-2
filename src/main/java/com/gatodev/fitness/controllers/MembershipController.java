@@ -2,7 +2,6 @@ package com.gatodev.fitness.controllers;
 
 import com.gatodev.fitness.entities.Membership;
 import com.gatodev.fitness.services.MembershipService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,8 +9,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/membership")
 public class MembershipController {
 
-    @Autowired
-    private MembershipService membershipService;
+    private final MembershipService membershipService;
+
+    public MembershipController(MembershipService membershipService) {
+        this.membershipService = membershipService;
+    }
 
     @GetMapping
     public ResponseEntity<?> getAllMemberships() {

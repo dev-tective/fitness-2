@@ -2,7 +2,6 @@ package com.gatodev.fitness.services;
 
 import com.gatodev.fitness.entities.Membership;
 import com.gatodev.fitness.repositories.MembershipRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +9,11 @@ import java.util.List;
 @Service
 public class MembershipServiceImpl implements MembershipService {
 
-    @Autowired
-    private MembershipRepository membershipRepository;
+    private final MembershipRepository membershipRepository;
+
+    public MembershipServiceImpl(MembershipRepository membershipRepository) {
+        this.membershipRepository = membershipRepository;
+    }
 
     @Override
     public Membership addMembership(Membership membership) {
@@ -26,12 +28,20 @@ public class MembershipServiceImpl implements MembershipService {
     @Override
     public Membership getMembership(Long id) {
         return membershipRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Membership not found"));
+                .orElseThrow(() -> new RuntimeException("Membresía no encontrada"));
     }
 
     @Override
     public void deleteMembership(Long id) {
-        membershipRepository.deleteById(id);
+        membershipRepository.findById(id).ifPresentOrElse(
+                membership -> {
+                    membership.setActive(false);
+                    membershipRepository.save(membership);
+                },
+                () -> {
+                    throw new RuntimeException("Membresía no encontrada");
+                }
+        );
     }
 
     @Override

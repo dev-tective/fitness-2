@@ -5,7 +5,6 @@ import com.gatodev.fitness.enums.Rol;
 import com.gatodev.fitness.models.LoginResponse;
 import com.gatodev.fitness.repositories.UserRepository;
 import jakarta.annotation.PostConstruct;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +12,17 @@ import java.util.List;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private BCryptPasswordEncoder bCrypt;
-    @Autowired
-    private JwtService jwtService;
+    private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCrypt;
+    private final JwtService jwtService;
+
+    public UserServiceImpl(UserRepository userRepository,
+                           BCryptPasswordEncoder bCrypt,
+                           JwtService jwtService) {
+        this.userRepository = userRepository;
+        this.bCrypt = bCrypt;
+        this.jwtService = jwtService;
+    }
 
     @PostConstruct
     public void init() {
@@ -27,6 +31,7 @@ public class UserServiceImpl implements UserService {
                     .email("admin@mail.com")
                     .password(bCrypt.encode("admin"))
                     .role(Rol.ADMIN)
+                    .active(true)
                     .build();
             userRepository.save(user);
         }
@@ -56,7 +61,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        userRepository.findById(id).ifPresentOrElse(
+                user -> {
+                    user.setActive(false);
+                    userRepository.save(user);
+                },
+                () -> {
+                    throw new RuntimeException("Usuario no encontrado");
+                }
+        );
     }
 
     @Override

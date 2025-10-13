@@ -2,7 +2,6 @@ package com.gatodev.fitness.services;
 
 import com.gatodev.fitness.entities.Training;
 import com.gatodev.fitness.repositories.TrainingRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,8 +9,11 @@ import java.util.List;
 @Service
 public class TrainingServiceImpl implements TrainingService {
 
-    @Autowired
-    private TrainingRepository trainingRepository;
+    private final TrainingRepository trainingRepository;
+
+    public TrainingServiceImpl(TrainingRepository trainingRepository) {
+        this.trainingRepository = trainingRepository;
+    }
 
     @Override
     public Training addTraining(Training training) {
@@ -26,12 +28,20 @@ public class TrainingServiceImpl implements TrainingService {
     @Override
     public Training getTraining(Long id) {
         return trainingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Training not found"));
+                .orElseThrow(() -> new RuntimeException("Entrenamiento no encontrado"));
     }
 
     @Override
     public void deleteTraining(Long id) {
-        trainingRepository.deleteById(id);
+        trainingRepository.findById(id).ifPresentOrElse(
+                training -> {
+                    training.setActive(false);
+                    trainingRepository.save(training);
+                },
+                () -> {
+                    throw new RuntimeException("Entrenamiento no encontrado");
+                }
+        );
     }
 
     @Override

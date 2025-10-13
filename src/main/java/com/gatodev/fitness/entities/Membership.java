@@ -1,95 +1,33 @@
 package com.gatodev.fitness.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.Generated;
+import jakarta.persistence.*;
+import lombok.*;
 
+import java.math.BigDecimal;
+import java.time.Period;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Entity
 public class Membership {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int duration;
-    private String category;
-    private int sessionPersonalized;
-    private int sessionGroup;
-    private double price;
+    @Column(nullable = false, unique = true)
+    private String name;
 
-    @Generated
-    public Long getId() {
-        return id;
-    }
+    @Column(nullable = false)
+    private Integer duration = 30;
 
-    @Generated
-    public int getDuration() {
-        return duration;
-    }
+    private Integer sessionPersonalized;
 
-    @Generated
-    public String getCategory() {
-        return category;
-    }
+    private Integer sessionGroup;
 
-    @Generated
-    public int getSessionPersonalized() {
-        return sessionPersonalized;
-    }
+    private BigDecimal price;
 
-    @Generated
-    public int getSessionGroup() {
-        return sessionGroup;
-    }
-
-    @Generated
-    public double getPrice() {
-        return price;
-    }
-
-    @Generated
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    @Generated
-    public void setDuration(int duration) {
-        this.duration = duration;
-    }
-
-    @Generated
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    @Generated
-    public void setSessionPersonalized(int sessionPersonalized) {
-        this.sessionPersonalized = sessionPersonalized;
-    }
-
-    @Generated
-    public void setSessionGroup(int sessionGroup) {
-        this.sessionGroup = sessionGroup;
-    }
-
-    @Generated
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
-    @Generated
-    public Membership(Long id, int duration, String category,
-                      int sessionPersonalized, int sessionGroup, double price) {
-        this.id = id;
-        this.duration = duration;
-        this.category = category;
-        this.sessionPersonalized = sessionPersonalized;
-        this.sessionGroup = sessionGroup;
-        this.price = price;
-    }
-
-    @Generated
-    public Membership() {}
+    private boolean active;
 }
