@@ -1,7 +1,8 @@
-package com.gatodev.fitness.services;
+package com.gatodev.fitness.services.impl;
 
 import com.gatodev.fitness.entities.Training;
 import com.gatodev.fitness.repositories.TrainingRepository;
+import com.gatodev.fitness.services.TrainingService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

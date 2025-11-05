@@ -1,7 +1,8 @@
-package com.gatodev.fitness.services;
+package com.gatodev.fitness.services.impl;
 
 import com.gatodev.fitness.entities.Area;
 import com.gatodev.fitness.repositories.AreaRepository;
+import com.gatodev.fitness.services.AreaService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,10 +35,7 @@ public class AreaServiceImpl implements AreaService {
     @Override
     public void deleteArea(Long id) {
         areaRepository.findById(id).ifPresentOrElse(
-                area -> {
-                    area.setActive(false);
-                    areaRepository.save(area);
-                },
+                areaRepository::delete,
                 () -> {
                     throw new RuntimeException("Área no encontrada");
                 }

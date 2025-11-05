@@ -1,10 +1,9 @@
 package com.gatodev.fitness.repositories;
 
-import com.gatodev.fitness.entities.Area;
+import com.gatodev.fitness.entities.Session;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface AreaRepository extends JpaRepository<Area,Long> {
-    boolean existsByName(String areaName);
+public interface SessionRepository extends JpaRepository<Session, Long> {
 }

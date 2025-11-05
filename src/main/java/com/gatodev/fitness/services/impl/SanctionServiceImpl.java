@@ -1,7 +1,8 @@
-package com.gatodev.fitness.services;
+package com.gatodev.fitness.services.impl;
 
 import com.gatodev.fitness.entities.Sanction;
 import com.gatodev.fitness.repositories.SanctionRepository;
+import com.gatodev.fitness.services.SanctionService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

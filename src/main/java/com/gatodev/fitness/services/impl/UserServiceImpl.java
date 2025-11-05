@@ -1,9 +1,11 @@
-package com.gatodev.fitness.services;
+package com.gatodev.fitness.services.impl;
 
 import com.gatodev.fitness.entities.User;
 import com.gatodev.fitness.enums.Rol;
 import com.gatodev.fitness.models.LoginResponse;
 import com.gatodev.fitness.repositories.UserRepository;
+import com.gatodev.fitness.services.JwtService;
+import com.gatodev.fitness.services.UserService;
 import jakarta.annotation.PostConstruct;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;

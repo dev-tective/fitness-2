@@ -1,8 +1,8 @@
-package com.gatodev.fitness.services;
+package com.gatodev.fitness.services.impl;
 
 import com.gatodev.fitness.entities.Site;
 import com.gatodev.fitness.repositories.SiteRepository;
-import jakarta.annotation.PostConstruct;
+import com.gatodev.fitness.services.SiteService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
