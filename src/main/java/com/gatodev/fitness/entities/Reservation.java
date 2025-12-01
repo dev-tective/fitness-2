@@ -21,6 +21,6 @@ public class Reservation {
     @ManyToOne
     private Session session;
 
-   /* Próximamente
-    private Client client;*/
+    @ManyToOne
+    private Client client;
 }
